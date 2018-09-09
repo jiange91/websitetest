@@ -1,0 +1,163 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="keywords" content="">
+<title>{{ group_name }}</title>
+<!-- Favicon Icon -->
+<link rel="shortcut icon" href="{% static 'waterfull/img/favicon.ico' %}" type="image/x-icon">
+<!-- Bootstrap -->
+<link rel="stylesheet" href="{% static 'waterfull/css/bootstrap.css' %}">
+<!-- Plugins -->
+<link rel="stylesheet" href="{% static 'waterfull/css/core.css' %}">
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- jquery content -->
+    <script src="{% static 'GridLoadingEffects-150703144712/js/modernizr.custom.js' %}"></script>
+        <script src="{% static 'GridLoadingEffects-150703144712/js/AnimOnScroll.js' %}"></script>
+        <script src="{% static 'GridLoadingEffects-150703144712/js/imagesloaded.js' %}"></script>
+        <script src="{% static 'GridLoadingEffects-150703144712/js/masonry.pkgd.min.js' %}"></script>
+        <script src="{% static 'GridLoadingEffects-150703144712/js/classie.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'GridLoadingEffects-150703144712/css/component.css' %}" />
+</head>
+
+<body id="top" class="stickyfooter header-fixed">
+<div class="animsition">
+	<div class="content">
+		<header class="header-wrap no-transparent">
+			<div class="header-container">
+				<div class="container clearfix">
+					<div class="pull-left">
+						<!-- Logo -->
+						<a href="{% url 'miunottingham:main_page' %}" class="logo clearfix">C-ACT</a>
+					</div>
+					<div class="pull-right">
+						<!-- Menu Burger -->
+						<a href="#" class="fullscreen-menu-toggle">
+							<span>Menu</span>
+							<i class="menu-bars">
+								<i></i>
+								<i></i>
+								<i></i>
+							</i>
+						</a>
+					</div>
+
+				</div>
+			</div>
+			<!-- End header-container -->
+		</header>
+		<div id="fullscreen-navigation">
+			<div class="inner-wrap">
+				<nav>
+					<ul class="nav_menu">
+						<li><a href="{% url 'miunottingham:main_page' %}">Home</a></li>
+						<li><a href="{% url 'accounts:cover_page' %}">About US</a></li>
+                        <li><a href="{% url 'miunottingham:groups' %}">Registered Groups</a></li>
+						{% if request.session.is_login %}
+                            <li><a href="{% url 'accounts:userinfo' %}"> {{ request.session.user_name }}</a></li>
+                            <li><a href="{% url 'accounts:logout' %}?from={{ request.get_full_path }}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{% url 'accounts:login_test' %}?from={{ request.get_full_path }}">Login</a></li>
+                            <li><a href="{% url 'accounts:register' %}">Sign-up</a></li>
+                        {% endif %}
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<!-- End fullscreen-navigation -->
+		<section class="jarallax" style="background-image: url('{{ group.img.url }}');">
+			<div class="container">
+				<div class="aligner">
+					<div class="aligner-item page-title">
+						<h3 style="color:#dbdbdb;">Welcome to</h3>
+                        <h2 style="text-transform: initial; color: #dbdbdb">{{ group_name }}</h2>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End section -->
+
+		<main>
+            <center><em><h5>Activities{% if notice %}  - - - - - - - - -  <a href="{% url 'miunottingham:new_activity' group.id %}" style="white-space: nowrap">add more</a>{% endif %}</h5></em></center>
+<ul class="grid effect-6" id="grid">
+{% if notice %}
+    {% for act in activities %}
+        <li><article class="portfolio-item-wrap f_Furniture">
+								<div class="portfolio-item">
+									<div class="portfolio-img">
+										<img src="{{ act.img.url }}" alt="image load fails">
+									</div>
+									<div class="portfolio-content-wrap">
+										<div class="potfolio-content">
+                                            <h5><a href="{% url 'miunottingham:details' act.id %}" style="color: #fbfbfb">{{ act.short_name }}</a></h5>
+											<div class="portfolio-categories">
+												 {{ act.begin }}
+											</div>
+                                            <h6 class="portfolio-title">
+												<a href="{% url 'miunottingham:edit_activity' act.id %}" class="animsition-link"> Edit details</a>
+											</h6>
+										</div>
+									</div>
+								</div>
+							</article>
+                </li>
+        {% empty %} <center><p>It is as empty as the condition in your head</p></center>
+    {% endfor %}
+{% else %}
+{% for act in activities %}
+        <li><article class="portfolio-item-wrap f_Furniture">
+								<div class="portfolio-item">
+									<div class="portfolio-img">
+										<img src="{{ act.img.url }}" alt="image load fails">
+									</div>
+									<div class="portfolio-content-wrap">
+										<div class="potfolio-content">
+                                            <h5><a href="{% url 'miunottingham:details' act.id %}" style="color: #fbfbfb">{{ act.short_name }}</a></h5>
+											<h6 class="portfolio-title">
+												<a href="{% url 'miunottingham:group_acts' act.group_name.id %}" class="animsition-link">{{ act.group_name.group_name }}</a>
+											</h6>
+											<div class="portfolio-categories">
+												 {{ act.begin }}
+											</div>
+										</div>
+									</div>
+								</div>
+							</article>
+                </li>
+    {% empty %} <center><p>The group is lazy.</p></center>
+    {% endfor %}
+{% endif %}
+</ul>
+            <a href="#top" class="scroll-top scroll-top-hidden">
+                <i class="fa fa-angle-up"></i>
+            </a>
+        </main>
+    </div>
+</div>
+			<!-- End section -->
+			<!-- Count To -->
+<!-- End animsition -->
+<script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static 'js/libs.js' %}"></script>
+<!-- Custom -->
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<!-- jquery part -->
+<script src="{% static 'GridLoadingEffects-150703144712/js/masonry.pkgd.min.js' %}"></script>
+<script src="{% static 'GridLoadingEffects-150703144712/js/imagesloaded.js' %}"></script>
+<script src="{% static 'GridLoadingEffects-150703144712/js/classie.js' %}"></script>
+<script src="{% static 'GridLoadingEffects-150703144712/js/AnimOnScroll.js' %}"></script>
+<script>
+			new AnimOnScroll( document.getElementById( 'grid' ), {
+				minDuration : 0.4,
+				maxDuration : 0.7,
+				viewportFactor : 0.2
+			} );
+		</script>
+</body>
+</html>

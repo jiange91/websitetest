@@ -1,0 +1,12 @@
+{% extends "accounts/base1.html" %}
+{% block title %}Add your activity{% endblock %}
+
+{% block content %}
+    <p><a href="{% url 'miunottingham:group_acts' group_id %}">existing activities held by {{ group_name }}</a> </p>
+    <p>Add a new activity:</p>
+    <form action="{% url 'miunottingham:new_activity' group_id%}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Add activity</button>
+    </form>
+{% endblock content %}

@@ -1,0 +1,51 @@
+{% extends 'accounts/base1.html' %}
+{% load staticfiles %}
+{% block title %}{{ user.username }}{% endblock %}
+{% block css %}
+    <style type="text/css">
+    body{
+        background-color: #eee;
+    }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+          <form class='form-signin' action="{% url 'accounts:userinfo'%}" method="post">
+              {% if message %}
+                  <div class="alert alert-warning">{{ message }}</div>
+              {% endif %}
+              {% csrf_token %}
+              <h2 class="form-signin-heading">{{ user.username }}'s information</h2>
+              <div class="form-group">
+                  {{ form.username.label_tag }}
+                  {{ form.username }}
+              </div>
+              <div class="form-group">
+                  {{ form.email.label_tag }}
+                  {{ form.email}}
+              </div>
+              <button type="submit" class="btn btn-lg btn-primary btn-block">Edit</button>
+              {% if notice %}
+                  <div class="row">
+                      <em class="alert alert-success">{{ notice }}</em>
+                  </div>
+                  <script>
+                      window.setTimeout("window.location.href='http://localhost:8000/accounts/userinfo/'",1000);
+                  </script>
+              {% endif %}
+              <br>
+           <a href="{% url 'accounts:pswchange_request'%}">Change your password</a>
+          </form>
+{#        {% if isgroup %}#}
+{#            <p>Your registered group: {{ group_name }}</p>#}
+{#            <a href="{% url 'miunottingham:group_acts' group.id %}">View your activities</a>#}
+{#        {% else %}#}
+{#            <a href="{% url 'miunottingham:new_group' userid %}">Register your group</a>#}
+{#        {% endif %}#}
+        <a href="#" onclick="return confirm('此功能在赶来的路上')">Register your group</a>
+        </div>
+    </div> <!-- /container -->
+{% endblock %}

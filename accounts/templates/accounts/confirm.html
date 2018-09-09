@@ -1,0 +1,12 @@
+{% extends 'accounts/base1.html' %}
+{% block title %}Sign-up confirmation{% endblock %}
+{% block content %}
+    <div class="row">
+        <h1 class="text-center">{{ message }}</h1>
+    </div>
+    {% if message != 'Please confirm the request via the link in your email' or 'Please activate your account through email confirmation' %}
+        <script>
+            window.setTimeout("window.location='/accounts/login_test/'",2000);
+        </script>
+    {% endif %}
+{% endblock %}

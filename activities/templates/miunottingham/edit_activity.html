@@ -1,0 +1,13 @@
+{% extends "accounts/base1.html" %}
+{% block title %}edit your activity{% endblock %}
+
+{% block content %}
+    <p><a href="{% url 'miunottingham:group_acts' group.id %}"><em>Group activities</em></a></p>
+    <p>you are editing {{ activity }}</p>
+    <form action="{% url 'miunottingham:edit_activity' activity.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">save changes</button>
+    </form>
+    <a href="{% url 'miunottingham:del_activity' activity.id %}" class="button">Cancel it</a>
+{% endblock content %}

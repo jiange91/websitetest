@@ -1,0 +1,14 @@
+{% extends "accounts/base1.html" %}
+{% block title %}Activity details{% endblock %}
+
+{% block content %}
+    <p>Group: {{ group_name }}</p>
+    <p>Activity: {{ activity.short_name }}</p>
+    <p><img src="{{ activity.img.url }}"></p>
+    <p>Link: <a href="{{ activity.links }}" style="text-decoration:none">{{ activity.links }}</a></p>
+    <p>Pub_date: {{ activity.pub_date }}</p>
+    <p>Activity starts at: {{ activity.begin }}</p>
+    {% if notice %}
+        <a href="{% url 'miunottingham:edit_activity' activity.id %}">edit details</a>
+    {% endif %}
+{% endblock %}

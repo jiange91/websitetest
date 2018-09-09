@@ -1,0 +1,90 @@
+{% extends 'accounts/base1.html' %}
+{% load staticfiles %}
+{% block title %}Login{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dianzan.css' %}">
+    <link rel="stylesheet" href="{% static 'maotouying/css/jq22.css' %}">
+    <script src="{% static 'maotouying/js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'waterfull/css/bootstrap.css' %}">
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'GridLoadingEffects-150703144712/js/modernizr.custom.js' %}"></script>
+        <script src="{% static 'GridLoadingEffects-150703144712/js/AnimOnScroll.js' %}"></script>
+        <script src="{% static 'GridLoadingEffects-150703144712/js/imagesloaded.js' %}"></script>
+        <script src="{% static 'GridLoadingEffects-150703144712/js/masonry.pkgd.min.js' %}"></script>
+        <script src="{% static 'GridLoadingEffects-150703144712/js/classie.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'GridLoadingEffects-150703144712/css/component.css' %}" />
+<!-- Plugins -->
+<link rel="stylesheet" href="{% static 'waterfull/css/core.css' %}">
+    <style type="text/css">
+        a.btn-link.text-muted {
+            color: #def4fb;
+        }
+        a.btn-link.text-muted:hover,
+        a.btn-link.text-muted:active,
+        a.btn-link.text-muted:focus {
+            color: #fef0aa;
+        }
+        #login .loginform .form-actions,
+        #register .loginform .form-actions {
+            border-top: 1px solid #e4e4e4;
+            background-color: #607d8b;
+            padding: 15px 30px;
+            text-align: right;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+     <div id="login">
+    <div class="wrapper">
+        <div class="login">
+                <form class='container offset1 loginform' action="#" method="post">
+                  {% csrf_token %}
+                {% if message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                {% endif %}
+                    <div id="owl-login">
+                        <div class="hand"></div>
+                        <div class="hand hand-r"></div>
+                        <div class="arms">
+                            <div class="arm"></div>
+                            <div class="arm arm-r"></div>
+                        </div>
+                    </div>
+
+                <div class="pad">
+                  {% for field in form %}
+                          <div class="control-group">
+                              <div class="controls">
+                                  <label for="{{ field.id_for_label }}" class="control-label fa fa-asterisk">{{ field.label }}</label>
+                                  {{ field }}
+                              </div>
+                          </div>
+                  {% endfor %}
+                </div>
+                <div class="form-actions">
+                    <a href="{% url 'accounts:pswforget' %}" tabindex="5" class="btn pull-left btn-link text-muted">Forgot password?</a>
+                    <a href="{% url 'accounts:register' %}" tabindex="6" class="btn btn-link text-muted">Sign Up</a>
+                    <button type="submit" tabindex="4" class="btn btn-primary">Login</button>
+                </div>
+                </form>
+            </div>
+            </div>
+     <script src="{% static 'maotouying/js/jquery.min.js' %}"></script>
+    <script>
+    $(function() {
+
+        $('#login #password').focus(function() {
+            $('#owl-login').addClass('password');
+        }).blur(function() {
+            $('#owl-login').removeClass('password');
+        });
+    });
+    </script>
+        </div>
+    <!-- /container -->
+{% endblock %}

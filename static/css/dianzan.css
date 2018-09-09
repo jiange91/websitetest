@@ -1,0 +1,42 @@
+div.like{
+color: whitesmoke;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.5em 0.3em;
+    font-size: 25px;
+    margin-right: 13%;
+}
+
+div.like .active{
+    color: #2aabd2;
+}
+
+div.par{
+    color: whitesmoke;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.5em 0.3em;
+    font-size: 25px;
+}
+
+div.par .active2{
+    color: #2aabd2;
+}
+
+
+.dianzan:hover{
+    color: #2aabd2;
+}
+
+.canjia:hover{    color: #2aabd2;
+}
+.canjia{
+    margin-right: 3px;
+}
+
+.dianzan{margin-right: 3px}
+
+
+div.containercustomer{
+    text-align: center;
+}

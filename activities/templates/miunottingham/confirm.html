@@ -1,0 +1,18 @@
+{% extends 'accounts/base1.html' %}
+{% block title %}Sign-up confirmation{% endblock %}
+{% block content %}
+    <div class="row">
+        <h1 class="text-center">{{ message }}</h1>
+    </div>
+    {% if request.session.is_login %}
+        {% if not message == 'Please activate your account through email confirmation' %}
+            <script>
+                window.setTimeout("window.location.href='http://localhost:8000/accounts/userinfo/{{ user.id }}/'",1500);
+            </script>
+        {% endif %}
+    {% else %}
+         <script>
+             window.setTimeout("window.location='/accounts/login/'",1500);
+         </script>
+    {% endif %}
+{% endblock %}

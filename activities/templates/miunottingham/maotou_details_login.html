@@ -1,0 +1,404 @@
+{% load static %}
+{% load likes_tags %}
+
+<!DOCTYPE html>
+<html lang="en-US" xmlns="http://www.w3.org/1999/html">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="keywords" content="">
+<title>{{ activity.short_name }}</title>
+<!-- Favicon Icon -->
+<link rel="shortcut icon" href="{% static 'waterfull/img/favicon.ico' %}" type="image/x-icon">
+<!-- Bootstrap -->
+    <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'waterfull/css/bootstrap.css' %}">
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+<!-- Plugins -->
+<link rel="stylesheet" href="{% static 'waterfull/css/core.css' %}">
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dianzan.css' %}">
+
+{#    <link rel="stylesheet" href="{% static 'dianzan/css/style.css' %}">#}
+    <!-- jquery content -->
+    <script src="{% static 'GridLoadingEffects-150703144712/js/modernizr.custom.js' %}"></script>
+        <script src="{% static 'GridLoadingEffects-150703144712/js/AnimOnScroll.js' %}"></script>
+        <script src="{% static 'GridLoadingEffects-150703144712/js/imagesloaded.js' %}"></script>
+        <script src="{% static 'GridLoadingEffects-150703144712/js/masonry.pkgd.min.js' %}"></script>
+        <script src="{% static 'GridLoadingEffects-150703144712/js/classie.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'GridLoadingEffects-150703144712/css/component.css' %}" />
+{#    login_model js,css#}
+    <link rel="stylesheet" href="{% static 'maotouying/css/jq22.css' %}">
+    <style type="text/css">
+        .btn-link {
+          font-weight: normal;
+          color: #428bca;
+          cursor: pointer;
+          border-radius: 0;
+        }
+        .btn {
+          display: inline-block;
+          padding: 6px 12px;
+          margin-bottom: 0;
+          font-size: 14px;
+          font-weight: normal;
+          line-height: 1.428571429;
+          text-align: center;
+          white-space: nowrap;
+          vertical-align: middle;
+          cursor: pointer;
+          border: 1px solid transparent;
+          border-radius: 4px;
+          -webkit-user-select: none;
+             -moz-user-select: none;
+              -ms-user-select: none;
+               -o-user-select: none;
+                  user-select: none;
+        }
+        body{
+            font-family: 'Roboto', sans-serif;
+        }
+        a {
+          color: #428bca;
+          text-decoration: none;
+        }
+        a:hover{
+            color: lightgoldenrodyellow;
+        }
+        * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+        #login .loginform .form-actions {
+          border-top: 1px solid #e4e4e4;
+          background-color: #607d8b;
+          padding: 15px 30px;
+          text-align: right;
+        }
+    </style>
+</head>
+
+<body id="top" class="stickyfooter header-fixed">
+<!-- Modal -->
+
+    <div class="modal fade" id="login_modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm" role="document">
+
+                <div id="login">
+                  <div class="wrapper">
+                      <div class="login" style="height: 0">
+                          <form id="login_medal_form" class='container offset1 loginform' action="{% url 'accounts:login_for_medal' %}" method="post">
+
+                              {% csrf_token %}
+                                  <div id="owl-login">
+                                    <div class="hand"></div>
+                                    <div class="hand hand-r"></div>
+                                    <div class="arms">
+                                        <div class="arm"></div>
+                                        <div class="arm arm-r"></div>
+                                    </div>
+                                </div>
+                              <span id="login_medal_tip" class="text-danger"></span>
+
+                          <div class="pad" style="padding: 30px">
+                              <div class="control-group">
+                                  <div class="controls">
+                                      <label for="{{ form.email.id_for_label }}" class="control-label fa fa-envelope">{{ form.email.label }}</label>
+                                      {{ form.email }}
+                                  </div>
+                              </div>
+                              <div class="control-group">
+                                  <div class="controls">
+                                      <label for="{{ form.password.id_for_label }}" class="control-label fa fa-asterisk">{{ form.password.label }}</label>
+                                      {{ form.password }}
+                                  </div>
+                              </div>
+                          </div>
+{#                              冲突#}
+                              <div class="form-actions" >
+                                  <a href="{% url 'accounts:pswforget' %}" tabindex="5" class="btn pull-left btn-link text-muted">Forgot password?</a>
+                                  <a href="{% url 'accounts:register' %}" tabindex="6" class="btn btn-link text-muted">Sign Up</a>
+                                  <button type="submit" tabindex="4" class="btn btn-primary">Login</button>
+                              </div>
+
+                          </form>
+                      </div>
+                  </div>
+                </div>
+
+
+      </div>
+    </div>
+
+<script>
+    $(function() {
+
+        $('#login #password').focus(function() {
+            $('#owl-login').addClass('password');
+        }).blur(function() {
+            $('#owl-login').removeClass('password');
+        });
+    });
+    </script>
+{#modal finished#}
+
+<div class="animsition">
+	<div class="content">
+		<header class="header-wrap no-transparent">
+			<div class="header-container">
+				<div class="container clearfix">
+					<div class="pull-left">
+						<!-- Logo -->
+						<a href="{% url 'accounts:cover_page' %}" class="logo clearfix">C-ACT</a>
+					</div>
+					<div class="pull-right">
+						<!-- Menu Burger -->
+						<a href="#" class="fullscreen-menu-toggle">
+							<span>Menu</span>
+							<i class="menu-bars">
+								<i></i>
+								<i></i>
+								<i></i>
+							</i>
+						</a>
+					</div>
+
+				</div>
+			</div>
+			<!-- End header-container -->
+		</header>
+		<div id="fullscreen-navigation">
+			<div class="inner-wrap">
+				<nav>
+					<ul class="nav_menu">
+						<li><a href="{% url 'miunottingham:main_page' %}">Home</a></li>
+						<li><a href="{% url 'accounts:cover_page' %}">About US</a></li>
+                        <li><a href="{% url 'miunottingham:groups' %}">Registered Groups</a></li>
+						{% if request.session.is_login %}
+                            <li><a href="{% url 'accounts:userinfo' %}"> {{ request.session.user_name }}</a></li>
+                            <li><a href="{% url 'accounts:logout' %}?from={{ request.get_full_path }}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{% url 'accounts:login_test' %}?from={{ request.get_full_path }}">Login</a></li>
+                            <li><a href="{% url 'accounts:register' %}">Sign-up</a></li>
+                        {% endif %}
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<!-- End fullscreen-navigation -->
+		<section class="jarallax" style="background-image: url('{{ activity.img.url }}');">
+			<div class="container">
+				<div class="aligner">
+					<div class="aligner-item page-title">
+						<h3 style="color:#ffffff;">Welcome join</h3>
+                        <h2 style="text-transform: initial; color: #ffffff">{{ activity.short_name }}</h2>
+                        <br><br>
+                        <div style="
+                            font-weight: bold;
+                            font-size:  18px;
+                            color: lightgrey;
+                        ">
+                            Group: <a id='grouplinks' href="{% url 'miunottingham:group_acts' group.id %}"  style="letter-spacing: 1px ;color: lightgrey">{{ group.group_name }}</a><br>
+                            Activity: {{ activity.short_name }}<br>
+                            Pub_date: {{ activity.pub_date }}<br>
+                            Activity starts at: {{ activity.begin }}<br>
+                            Link: <a href="{{ activity.links }}" style="color: lightgrey;">{{ activity.links }}</a>
+                        </div><br>
+                        <div class="containercustomer">
+                        <div class="like" onclick="LikeChange(this, {{ activity.id }})">
+                            <span class="dianzan glyphicon glyphicon-heart {% get_like_status  user authenticated activity %}" ></span>
+                            <span class="liked_num {% get_like_status  user authenticated activity %}">{% get_like_count activity %}</span>
+                            <span></span>
+                        </div>
+                        <div class="par" onclick="ParChange(this, {{ activity.id }})">
+                            <span class="canjia glyphicon glyphicon-flag {% get_par_status activity user authenticated %}" ></span>
+                            <span class="par_num {% get_par_status activity user authenticated %}">{% get_par_count activity %}</span>
+                            <span></span>
+                        </div>
+                        </div>
+                    </div>
+
+				</div>
+			</div>
+		</section>
+		<!-- End section -->
+
+		<main>
+<ul class="grid effect-6" id="grid">
+</ul>
+            <a href="#top" class="scroll-top scroll-top-hidden">
+                <i class="fa fa-angle-up"></i>
+            </a>
+        </main>
+    </div>
+</div>
+
+
+			<!-- End section -->
+			<!-- Count To -->
+<!-- End animsition -->
+<script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+<script src="{% static 'js/libs.js' %}"></script>
+<!-- Custom -->
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<!-- jquery part -->
+<script src="{% static 'GridLoadingEffects-150703144712/js/masonry.pkgd.min.js' %}"></script>
+<script src="{% static 'GridLoadingEffects-150703144712/js/imagesloaded.js' %}"></script>
+<script src="{% static 'GridLoadingEffects-150703144712/js/classie.js' %}"></script>
+<script src="{% static 'GridLoadingEffects-150703144712/js/AnimOnScroll.js' %}"></script>
+<link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.css' %}">
+<script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript">
+			new AnimOnScroll( document.getElementById( 'grid' ), {
+				minDuration : 0.4,
+				maxDuration : 0.7,
+				viewportFactor : 0.2
+			} );
+</script>
+
+{#想参加数#}
+<script type="text/javascript">
+    function ParChange(obj, act_id) {
+        var is_par = obj.getElementsByClassName('active2').length == 0
+        $.ajax({
+            url: "{% url 'par_change' %}",
+            type:'GET',
+            data:{
+                act_id: act_id,
+                is_par: is_par,
+            },
+            cache:false,
+            success: function (data) {
+                console.log(data)
+                if(data['status']=='SUCCESS'){
+                    var element = $(obj.getElementsByClassName('canjia')); var par_num = $(obj.getElementsByClassName('par_num'));
+                    if (is_par){
+                        element.addClass('active2');
+                        par_num.addClass('active2');
+                    }else {
+                        element.removeClass('active2');
+                        par_num.removeClass('active2');
+                    }
+
+                    par_num.text(data['par_num']);
+                }else{
+                    if (data['code']==400){
+                        $('#login_modal').modal('show');
+                    }else {
+                        alert(data['message']);
+                    }
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr)
+            }
+        });
+    }
+</script>
+{#点赞数#}
+<script type="text/javascript">
+    function LikeChange(obj, act_id) {
+        if (obj.getElementsByClassName('active').length == 0){
+            var islike = true;
+        }
+        else {
+            var islike = false;
+        }
+
+        $.ajax({
+            url: "{% url 'like_change' %}",
+            type: 'GET',
+            data: {
+                is_like: islike,
+                act_id: act_id,
+            },
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                if(data['status']=='SUCCESS'){
+                    var liked_num = $(obj.getElementsByClassName('liked_num')); var element = $(obj.getElementsByClassName('dianzan'));
+                    {#getElementsByClassName('glyphicon')#}
+                    if(islike){
+                        element.addClass('active');
+                        liked_num.addClass('active');
+                    }else {
+                        element.removeClass('active');
+                        liked_num.removeClass('active')
+                    }
+                    liked_num.text(data['liked_num']);
+
+                }else {
+                    if(data['code']==400){
+                        $('#login_modal').modal('show');
+                    }else {
+                        alert(data['message']);
+                        }
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr)
+            }
+        });
+    }
+</script>
+
+{#异步登录#}
+<script type="text/javascript">
+    $('#login_medal_form').submit(function (){
+        $.ajax({
+            url: "{% url 'accounts:login_for_medal' %}",
+            type: 'POST',
+            data: $(this).serialize(),
+            cache: false ,
+            success: function (data) {
+                if(data['status']=='SUCCESS'){
+                    window.location.reload();
+                }else {
+                    $('#login_medal_tip').text('账号或密码错误');
+                }
+            }
+        });
+        return false;
+    });
+</script>
+{#<script>#}
+{#	$(document).ready(function()#}
+{#	{#}
+{##}
+{#	$('body').on("click",'.heart',function()#}
+{#    {#}
+{##}
+{#    	var A=$(this).attr("id");#}
+{#    	var B=A.split("like");#}
+{#        var messageID=B[1];#}
+{#        var C=parseInt($("#likeCount"+messageID).html());#}
+{#    	$(this).css("background-position","")#}
+{#        var D=$(this).attr("rel");#}
+{##}
+{#        if(D === 'like')#}
+{#        {#}
+{#        $("#likeCount"+messageID).html(C+1);#}
+{#        $(this).addClass("heartAnimation").attr("rel","unlike");#}
+{##}
+{#        }#}
+{#        else#}
+{#        {#}
+{#        $("#likeCount"+messageID).html(C-1);#}
+{#        $(this).removeClass("heartAnimation").attr("rel","like");#}
+{#        $(this).css("background-position","left");#}
+{#        }#}
+{##}
+{##}
+{#    });#}
+{##}
+{##}
+{#	});#}
+{#	</script>#}
+</body>
+</html>

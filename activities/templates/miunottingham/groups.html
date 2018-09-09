@@ -1,0 +1,12 @@
+{% extends "accounts/base1.html" %}
+{% block title %}Groups{% endblock %}
+
+{% block content %}
+    <ul>
+        {% for group in group_list %}
+            <li><a href="{% url 'miunottingham:group_acts' group.id %}">{{ group.group_name }}</a></li>
+        {% empty %}
+            <p>The group is not registered yet, try another group</p>
+        {% endfor %}
+    </ul>
+{% endblock content %}
